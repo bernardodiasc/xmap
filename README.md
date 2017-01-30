@@ -1,17 +1,8 @@
 # X-Map
 
-> POC of filtering geojson data and displaying in the map using React and Google Maps
+> - POC of filtering geojson data and displaying in the map using React and Google Maps
+> - Note: this is a one day coding POC, please expect simple thing
 
-## Tech
-
-Tools integration stage:
-
-- [x] Babel
-- [x] Webpack 2
-- [ ] Webpack Dev server
-- [x] React
-- [x] Json-Schema-Faker
-- [x] Joi
-- [ ] Mocha
-- [ ] PostCSS
-- [x] GoogleMaps
+- Install: `npm install`
+- Develop: `npm start`
+- Build: `npm run build`

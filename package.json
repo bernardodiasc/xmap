@@ -4,7 +4,9 @@
   "description": "xmap",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "clean": "rimraf build",
+    "build": "NODE_ENV=production npm run clean && webpack -p",
+    "start": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -26,11 +28,14 @@
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "image-webpack-loader": "^3.1.0",
+    "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^2.2.0-rc.0"
+    "webpack": "^2.2.0-rc.0",
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "google-maps": "^3.2.1",
     "joi": "^10.2.0",
     "json-schema-faker": "^0.4.0",
     "react": "^15.4.2",

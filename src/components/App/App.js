@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+
 import Control from '../Control'
 import MapDisplay from '../MapDisplay'
 
@@ -16,6 +17,8 @@ class App extends Component {
 
   render() {
     const featureCollection = Geo.dataToGeoFeatureCollection(this.state.places)
+    // console.log('featureCollection', JSON.stringify(featureCollection))
+    // console.log(JSON.stringify(featureCollection.features.map(each => [each.geometry.coordinates[0], each.geometry.coordinates[1]])))
     return (
       <div>
         <Control />

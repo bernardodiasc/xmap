@@ -1,27 +1,47 @@
 import React, { Component, PropTypes } from 'react'
+import GoogleMapsLoader from 'google-maps'
 
 class MapDisplay extends React.Component {
-  constructor(props) {
-    super(props)
+  componentDidMount() {
+    GoogleMapsLoader.KEY = process.env.MAPS_KEY;
+    GoogleMapsLoader.LANGUAGE = 'en';
+    GoogleMapsLoader.LIBRARIES = ['places'];
+    GoogleMapsLoader.load(this.configureMap.bind(this));
   }
 
-  componentDidMount = (rootNode) => {
-    const props = this.props
-    const mapOptions = {
-      center: this.mapCenterLatLng(),
-      zoom: this.props.initialZoom
-    }
-    map = new google.maps.Map(this.refs.googlemap, mapOptions)
-    this.setState({ map: map })
-  }
+  configureMap(google) {
+    this.map = new google.maps.Map(this.refs.googlemap, {
+      center: {lat: 0, lng: 0},
+      zoom: 2,
+      minZoom: 2,
+      mapTypeId: google.maps.MapTypeId.HYBRID,
+      mapTypeIds: [
+        google.maps.MapTypeId.HYBRID,
+        google.maps.MapTypeId.ROADMAP,
+        google.maps.MapTypeId.SATELLITE,
+        google.maps.MapTypeId.TERRAIN
+      ],
+      scaleControl: true,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+        position: google.maps.ControlPosition.LEFT_BOTTOM
+      },
+      streetViewControl: true,
+      streetViewControlOptions: {
+        position: google.maps.ControlPosition.LEFT_BOTTOM
+      },
+      zoomControl: true,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.LEFT_BOTTOM
+      }
+    })
 
-  mapCenterLatLng = () => {
-    const props = this.props
-    return new google.maps.LatLng(props.mapCenterLat, props.mapCenterLng)
+    this.map.data.addGeoJson(this.props.featureCollection)
+    window.map = window.map || this.map
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="googlemap" ref="googlemap"></div>
     )
