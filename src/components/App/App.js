@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 import Control from '../Control'
 import MapDisplay from '../MapDisplay'
+import TableDisplay from '../TableDisplay'
 
 import * as Geo from '../../lib/geo'
 import * as Places from '../../model/Places'
@@ -23,6 +24,7 @@ class App extends Component {
       <div>
         <Control />
         <MapDisplay featureCollection={featureCollection} />
+        <TableDisplay data={this.state.places} />
       </div>
     )
   }

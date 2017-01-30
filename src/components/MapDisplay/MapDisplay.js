@@ -3,17 +3,20 @@ import GoogleMapsLoader from 'google-maps'
 
 class MapDisplay extends React.Component {
   componentDidMount() {
-    GoogleMapsLoader.KEY = process.env.MAPS_KEY;
-    GoogleMapsLoader.LANGUAGE = 'en';
-    GoogleMapsLoader.LIBRARIES = ['places'];
-    GoogleMapsLoader.load(this.configureMap.bind(this));
+    GoogleMapsLoader.KEY = 'AIzaSyB8ScO8AjPmGcr80eRgieOPnOa7IXLYtPs'
+    GoogleMapsLoader.LANGUAGE = 'en'
+    GoogleMapsLoader.LIBRARIES = ['places']
+    GoogleMapsLoader.load(this.configureMap.bind(this))
   }
 
   configureMap(google) {
     this.map = new google.maps.Map(this.refs.googlemap, {
-      center: {lat: 0, lng: 0},
+      center: {
+        lat: 0,
+        lng: 0,
+      },
       zoom: 2,
-      minZoom: 2,
+      minZoom: 1,
       mapTypeId: google.maps.MapTypeId.HYBRID,
       mapTypeIds: [
         google.maps.MapTypeId.HYBRID,
