@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-// import Immutable from 'immutable'
-// import deepEqual from 'deep-equal'
 
 import Control from '../Control'
 import MapDisplay from '../MapDisplay'
@@ -25,19 +23,10 @@ class App extends Component {
       //   choices: [0, 1, 5, 10, 20, 50, 100],
       // }
     }
+    this.state.table = {}
     this.state.allMarkers = Places.getSamples(100)
     this.state.currentMarkers = this.state.allMarkers.slice(0, (this.state.control.amount.value || this.state.control.amount.default))
     this.state.featureCollection = Geo.dataToGeoFeatureCollection(this.state.currentMarkers)
-  }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('deepEqual amount', deepEqual(this.state.control.amount, nextState.control.amount))
-  //   // console.log(deepEqual(this.state, nextState))
-  //   return deepEqual(this.state, nextState)
-  // }
-
-  componentWillUpdate() {
-    // console.log('componentWillUpdate', this.state)
   }
 
   handleMapState = (data) => {
@@ -49,10 +38,13 @@ class App extends Component {
     const controlState = this.state.control
     const control = Object.assign(controlState, data)
     const amount = controlState.amount.value !== undefined ? controlState.amount.value : controlState.amount.default
+    const currentMarkers = this.state.allMarkers.slice(0, amount)
+    const featureCollection = Geo.dataToGeoFeatureCollection(currentMarkers)
 
     this.setState({
       control,
-      currentMarkers: this.state.allMarkers.slice(0, amount),
+      currentMarkers,
+      featureCollection,
     })
   }
 
@@ -65,9 +57,6 @@ class App extends Component {
     console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
     console.log('this.state on render()', this.state)
     console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=')
-    // const featureCollection = Geo.dataToGeoFeatureCollection(this.state.places)
-    // console.log('featureCollection', JSON.stringify(featureCollection))
-    // console.log(JSON.stringify(featureCollection.features.map(each => [each.geometry.coordinates[0], each.geometry.coordinates[1]])))
     return (
       <div>
         <Control config={this.state.control} appState={this.handleControlData} />
@@ -77,7 +66,5 @@ class App extends Component {
     )
   }
 }
-
-// App.propTypes = {}
 
 export default App

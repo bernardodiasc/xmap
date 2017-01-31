@@ -2,6 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import GoogleMapsLoader from 'google-maps'
 
 class MapDisplay extends React.Component {
+  componentWillUpdate(nextProps, nextState) {
+    this.addGeoJson(nextProps.featureCollection)
+  }
+
   componentDidMount() {
     GoogleMapsLoader.KEY = 'AIzaSyB8ScO8AjPmGcr80eRgieOPnOa7IXLYtPs'
     GoogleMapsLoader.LANGUAGE = 'en'
@@ -55,8 +59,14 @@ class MapDisplay extends React.Component {
       this.props.appState(mapData)
     })
 
-    this.map.data.addGeoJson(this.props.featureCollection)
+    console.log('configureMap')
+    this.addGeoJson(this.props.featureCollection)
     window.map = window.map || this.map
+  }
+
+  addGeoJson(featureCollection) {
+    this.map.data.forEach(feature => this.map.data.remove(feature))
+    this.map.data.addGeoJson(featureCollection)
   }
 
   render() {
@@ -69,12 +79,6 @@ class MapDisplay extends React.Component {
 MapDisplay.propTypes = {
   featureCollection: PropTypes.object,
   appState: PropTypes.func,
-}
-
-MapDisplay.defaultProps = {
-  initialZoom: 8,
-  mapCenterLat: 43.6425569,
-  mapCenterLng: -79.4073126,
 }
 
 export default MapDisplay
