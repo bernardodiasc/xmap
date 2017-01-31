@@ -2,6 +2,7 @@ import Joi from 'joi'
 import Places from './Places'
 
 const schema = Joi.object().keys({
+  uid: Joi.string(),
   name: Joi.string(),
   city: Joi.string(),
   country: Joi.string(),

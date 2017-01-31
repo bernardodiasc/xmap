@@ -15,6 +15,10 @@ export const schema = {
   "place": {
     "type": "object",
     "properties": {
+      "uid": {
+        "type": "string",
+        "chance": "guid"
+      },
       "name": {
         "type": "string"
       },
@@ -46,6 +50,7 @@ export const schema = {
       }
     },
     "required": [
+      "uid",
       "name",
       "city",
       "country",

@@ -34,21 +34,18 @@ const Option = ({ template, config, handleChange }) => {
   return null
 }
 
-const Control = ({ config, appState }) => {
-  // console.log(Object.entries(config))
-  return (
-    <Wrapper>
-      {Object.entries(config).map(([key, value], i) => (
-        <Option
-          key={i}
-          template={key}
-          config={value}
-          handleChange={x => appState({ [key]: { ...value, value: x } })}
-        />
-      ))}
-    </Wrapper>
-  )
-}
+const Control = ({ config, appState }) => (
+  <Wrapper>
+    {Object.entries(config).map(([key, value], i) => (
+      <Option
+        key={i}
+        template={key}
+        config={value}
+        handleChange={x => appState({ [key]: { ...value, value: x } })}
+      />
+    ))}
+  </Wrapper>
+)
 
 Control.propTypes = {
   config: PropTypes.object,

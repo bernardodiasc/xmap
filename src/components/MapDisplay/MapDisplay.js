@@ -1,11 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import GoogleMapsLoader from 'google-maps'
+import deepEqual from 'deep-equal'
 
 class MapDisplay extends React.Component {
-  componentWillUpdate(nextProps, nextState) {
-    this.addGeoJson(nextProps.featureCollection)
-  }
-
   componentDidMount() {
     GoogleMapsLoader.KEY = 'AIzaSyB8ScO8AjPmGcr80eRgieOPnOa7IXLYtPs'
     GoogleMapsLoader.LANGUAGE = 'en'
@@ -53,15 +50,17 @@ class MapDisplay extends React.Component {
     // })
 
     this.map.data.addListener('mouseover', (event) => {
-      const mapData = {
-        name: event.feature.getProperty('name')
-      }
-      this.props.appState(mapData)
+      this.props.appState({ uid: event.feature.getProperty('uid') })
     })
 
-    console.log('configureMap')
     this.addGeoJson(this.props.featureCollection)
     window.map = window.map || this.map
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (!deepEqual(this.props.featureCollection, nextProps.featureCollection)) {
+      this.addGeoJson(nextProps.featureCollection)
+    }
   }
 
   addGeoJson(featureCollection) {
@@ -71,7 +70,7 @@ class MapDisplay extends React.Component {
 
   render() {
     return (
-      <div className="googlemap" ref="googlemap"></div>
+      <div className="MapDisplay" ref="googlemap"></div>
     )
   }
 }
