@@ -40,6 +40,21 @@ class MapDisplay extends React.Component {
       }
     })
 
+    // Add some style.
+    // map.data.setStyle(function(feature) {
+    //   return /** @type {google.maps.Data.StyleOptions} */({
+    //     fillColor: feature.getProperty('color'),
+    //     strokeWeight: 1
+    //   })
+    // })
+
+    this.map.data.addListener('mouseover', (event) => {
+      const mapData = {
+        name: event.feature.getProperty('name')
+      }
+      this.props.appState(mapData)
+    })
+
     this.map.data.addGeoJson(this.props.featureCollection)
     window.map = window.map || this.map
   }
@@ -53,6 +68,7 @@ class MapDisplay extends React.Component {
 
 MapDisplay.propTypes = {
   featureCollection: PropTypes.object,
+  appState: PropTypes.func,
 }
 
 MapDisplay.defaultProps = {

@@ -17,7 +17,7 @@ const TableDisplay = ({ data }) => (
   <Table>
     <thead>
       <tr>
-        {Object.entries(data[0]).map((cell, i) => (
+        {data[0] && Object.entries(data[0]).map((cell, i) => (
           <Th key={i}>{cell[0]}</Th>
         ))}
       </tr>
