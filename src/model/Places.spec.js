@@ -1,17 +1,28 @@
 import Joi from 'joi'
 import Places from './Places'
 
+/**
+ * Spec schema, based on Joi for better legibility and testing features
+ * @type {object}
+ */
 const schema = Joi.object().keys({
-  uid: Joi.string(),
+  uid: Joi.string().required(),
   name: Joi.string(),
   city: Joi.string(),
   country: Joi.string(),
   coordinates: Joi.array(),
 })
 
-const sample = Places.getSamples()
+describe('Places model', () => {
+  test('Model.getSamples(1, false) return random data that matches spec schema', () => {
+    const data = Places.getSamples(1, false)
+    const validate = Joi.validate(data[0], schema)
+    expect(validate.error).toBe(null);
+  })
 
-Joi.validate(sample, schema, (err, value) => {
-  if (err) console.log('Sample is invalid. err:', err)
-  else console.log('Sample is valid. value:', value)
+  test('Model.getSamples(1, true) return static data that matches spec schema', () => {
+    const data = Places.getSamples(1, true)
+    const validate = Joi.validate(data[0], schema)
+    expect(validate.error).toBe(null);
+  })
 })
