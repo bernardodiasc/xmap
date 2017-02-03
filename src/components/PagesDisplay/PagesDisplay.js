@@ -34,7 +34,7 @@ const PagesDisplay = ({ children }) => (
     {Children.map(children, (child, i) => (
       <Details open={false} key={i}>
         <Summary>
-          {child.type.name}
+          {child.props.pageName}
         </Summary>
         <Body>
           {child}

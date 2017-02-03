@@ -38,9 +38,9 @@ class App extends Component {
 
     this.state.data = {}
     this.state.data.places = Places.getSamples(50)
-    this.state.data.ships = Ships.getSamples(6)
+    this.state.data.ships = Ships.getSamples(6, true)
 
-    this.state.allMarkers = this.state.data.ships
+    this.state.allMarkers = this.state.data.places
     this.state.currentMarkers = this.state.allMarkers.slice(0, (this.state.control.amount.value || this.state.control.amount.default))
     this.state.featureCollection = Geo.dataToGeoFeatureCollection(this.state.currentMarkers)
 
@@ -109,7 +109,8 @@ class App extends Component {
         </Row>
         <Row>
           <PagesDisplay>
-            <TableDisplay data={this.state.currentMarkers} appState={this.handleTableState} />
+            <TableDisplay pageName="Ships" data={this.state.data.ships} appState={this.handleTableState} />
+            <TableDisplay pageName="Current Markers" data={this.state.currentMarkers} appState={this.handleTableState} />
           </PagesDisplay>
         </Row>
       </Wrapper>
