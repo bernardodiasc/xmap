@@ -23,7 +23,6 @@ export const getSamples = (amount = 1, fixture = false, schema = {}, data = []) 
         samples[i] = { error: 'invalid: data structure provided don`t match with schema.' }
       }
     } else if (fixture && !data[i]) {
-      console.log('data[i]:', data[i])
       delete samples[i]
     } else {
       samples[i] = jsf(schema)

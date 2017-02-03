@@ -4,23 +4,27 @@
   <title>X-Map</title>
   <link rel="stylesheet" type="text/css" href="build/styles.css" />
   <style type="text/css">
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      padding: 0 1rem;
+    }
     #root {
       width: 100%;
       text-align: center;
     }
     .MapDisplay {
-      margin: 0 auto;
       width: 800px;
-      height: 600px;
+      height: 500px;
+      margin: 1rem;
     }
     .ItemDisplay {
-      position: fixed;
-      top: 5rem;
-      right: 1rem;
-      width: 200px;
-      height: 400px;
+      width: calc(100% - 800px);
+      height: 500px;
       border: 1px solid silver;
       padding: 1rem;
+      margin: 1rem;
       background: #fff;
     }
   </style>

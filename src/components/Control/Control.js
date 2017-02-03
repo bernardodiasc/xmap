@@ -3,32 +3,54 @@ import styled from 'styled-components'
 import Select from 'react-select'
 
 const Wrapper = styled.section`
-  width: 800px;
-  margin: 0 auto;
-  padding: 1rem 0;
+  margin: 1rem;
   text-align: left;
-`;
+  display: flex;
+  flex-wrap: nowrap;
+`
+
+const OptionWrapper = styled.section`
+  flex-grow: 1;
+  margin: 0 1rem;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+`
 
 const Option = ({ template, config, handleChange }) => {
   const defaultValue = config.value !== undefined ? config.value : config.default
   switch (template) {
     case 'amount':
       return (
-        <Select
-          name={template}
-          value={defaultValue}
-          options={config.choices.map(option => ({ value: option, label: option }))}
-          onChange={value => handleChange(value.value)}
-        />
+        <OptionWrapper>
+          <span>Amount:</span>
+          <Select
+            name={template}
+            value={defaultValue}
+            options={config.choices}
+            onChange={value => handleChange(value.value)}
+            style={{ width: '100px' }}
+          />
+        </OptionWrapper>
       )
-    case 'list':
+    case 'choose':
       return (
-        <Select
-          name={template}
-          value={defaultValue}
-          options={config.choices.map(option => ({ value: option, label: option }))}
-          onChange={value => handleChange(value.value)}
-        />
+        <OptionWrapper>
+          <span>Select:</span>
+          <Select
+            name={template}
+            value={defaultValue}
+            options={config.choices}
+            onChange={value => handleChange(value)}
+            style={{ width: '380px' }}
+            multi
+          />
+        </OptionWrapper>
       )
   }
   return null
@@ -36,20 +58,35 @@ const Option = ({ template, config, handleChange }) => {
 
 const Control = ({ config, appState }) => (
   <Wrapper>
-    {Object.entries(config).map(([key, value], i) => (
+    {Object.entries(config).map(([key, config], i) => (
       <Option
         key={i}
         template={key}
-        config={value}
-        handleChange={x => appState({ [key]: { ...value, value: x } })}
+        config={config}
+        handleChange={data => {
+          const output = { [key]: { default: config.default, choices: config.choices, value: data } }
+          return appState(output)
+        }}
       />
     ))}
   </Wrapper>
 )
 
 Control.propTypes = {
-  config: PropTypes.object,
+  config: PropTypes.shape({
+    default: PropTypes.any,
+    value: PropTypes.any,
+    choices: PropTypes.array,
+  }),
   appState: PropTypes.func,
+}
+
+Control.defaultProps = {
+  config: {
+    default: '',
+    value: '',
+    choices: [],
+  },
 }
 
 export default Control

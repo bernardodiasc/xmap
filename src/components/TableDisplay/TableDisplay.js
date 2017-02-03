@@ -3,15 +3,15 @@ import styled from 'styled-components'
 
 const Table = styled.table`
   width: 100%;
-`;
+`
 
 const Th = styled.th`
   background: silver;
-`;
+`
 
 const Td = styled.td`
   text-align: left;
-`;
+`
 
 const TableDisplay = ({ data }) => (
   <Table>

@@ -17,12 +17,12 @@ describe('Places model', () => {
   test('Model.getSamples(1, false) return random data that matches spec schema', () => {
     const data = Places.getSamples(1, false)
     const validate = Joi.validate(data[0], schema)
-    expect(validate.error).toBe(null);
+    expect(validate.error).toBe(null)
   })
 
   test('Model.getSamples(1, true) return static data that matches spec schema', () => {
     const data = Places.getSamples(1, true)
     const validate = Joi.validate(data[0], schema)
-    expect(validate.error).toBe(null);
+    expect(validate.error).toBe(null)
   })
 })
